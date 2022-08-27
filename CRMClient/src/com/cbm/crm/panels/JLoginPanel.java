@@ -46,6 +46,11 @@ public class JLoginPanel extends javax.swing.JPanel {
         txtUN.setText("");
         txtPW.setText("");
         ld = new LoginDetails();
+        setUpdatable(false);
+    }
+    
+    public void setUpdatable(boolean visible) {
+        btnUpdate.setVisible(visible);
     }
 
     /**
