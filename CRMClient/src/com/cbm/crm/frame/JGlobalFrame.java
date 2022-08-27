@@ -20,6 +20,7 @@ import com.cbm.crm.panels.JGenericDescriptionPanel;
 import com.cbm.crm.panels.JLoginPanel;
 import com.cbm.crm.panels.JPersonalContactPanel;
 import com.cbm.crm.panels.JPersonalDetailsPanel;
+import com.cbm.crm.strings.String_Constants;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
@@ -63,7 +64,8 @@ public class JGlobalFrame extends javax.swing.JFrame {
         initComponents();
         
         initValues();
-        michkEditDetails.setSelected(false);
+        michkEditDetails.setEnabled(false);
+        //michkEditDetails.setSelected(false);
     }
     
     private void clearAll() {
@@ -77,7 +79,7 @@ public class JGlobalFrame extends javax.swing.JFrame {
         pnlAccountType.clear();
         pnlRole.clear();
         pnlLogin.clear();
-        setEditOptions(false);
+        //setEditOptions(false);
         tbpnlDetails.setSelectedIndex(0);
         btnPersonalDetailsRemove.setEnabled(false);
         recordExists=false;
@@ -169,6 +171,7 @@ public class JGlobalFrame extends javax.swing.JFrame {
         
         LoginDetails ld = new LoginDetailsClient().findByUsername_JSON(LoginDetails.class, p.getEmail());
         pnlLogin.setLoginDetails(ld);
+        if(ld!=null)pnlLogin.setUpdatable(true);
         //setEditOptions(account.getRoleId()==1);
         if(login!=null)michkEditDetails.setVisible(account.getRoleId()==1&&ld.getPersonId()==account.getPersonId());
         selectedPerson=p;
@@ -198,7 +201,6 @@ public class JGlobalFrame extends javax.swing.JFrame {
                         jo.get("gender").toString(),
                         jo.get("dateCreated").toString()
                 ));
-                
             }
             
             Object[] columns = {"ID", "Fullname", "Cell Nr. 1", "Email"};
@@ -215,9 +217,10 @@ public class JGlobalFrame extends javax.swing.JFrame {
                 public void valueChanged(ListSelectionEvent lse) {
                     if(tblPersonalDetailsMain.getSelectedRow()>=0) {
                         btnPersonalDetailsRemove.setEnabled(true);
-                        if(!michkEditDetails.isSelected())initPersonValues(mPeople.get(tblPersonalDetailsMain.getSelectedRow()));
-                        else JOptionPane.showMessageDialog(null, "Edit Mode is on. To switch "
-                                + "between details Edit Mode must be off.");
+                        initPersonValues(mPeople.get(tblPersonalDetailsMain.getSelectedRow()));
+                        //if(!michkEditDetails.isSelected())initPersonValues(mPeople.get(tblPersonalDetailsMain.getSelectedRow()));
+                        //else JOptionPane.showMessageDialog(null, "Edit Mode is on. To switch "
+                        //        + "between details Edit Mode must be off.");
                     }
                 }
             });
@@ -295,6 +298,7 @@ public class JGlobalFrame extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CRMClient-Test");
 
         pnlLD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -660,73 +664,78 @@ public class JGlobalFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPersonalDetailsClearActionPerformed
 
     private void btnPersonalDetailsSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalDetailsSaveActionPerformed
-        String trans="Person object %s by id=%d";
-        String transIs = "";
-        Person p = selectedPerson!=null?selectedPerson:new Person();
-        
-//        try {
+        try {
+            String trans="Person object %s by id=%d";
+            String transIs = "";
+            Person p = selectedPerson!=null?selectedPerson:new Person();
             p=pnlPersonalDetails.getPerson(p);
             p=pnlPersonalContact.getPerson(p);
-            String dateCreated = new SimpleDateFormat(Thereness.be().dateFormat).format(new Date());
-            if(!recordExists)p.setDateCreated(dateCreated);
-            Account a =recordExists?account:new Account();
-            a.setRoleId(((Role)pnlRole.objects.get(pnlRole.getSelectedIndex()-1)).getRoleId());
-            AccountType at = (AccountType)pnlAccountType.objects.get(pnlAccountType.getSelectedIndex()-1);
-            String accName = at.getAccountName();
-            a.setAccountTypeId(at.getAccountTypeId());
-            if(!recordExists) {
-                if(p!=null) {
-            PersonClient personClient = new PersonClient();
-                    transIs="created";
-                    personClient.create_JSON(p);
-                    p.setPersonId(personClient.findByDate_JSON(Person.class, dateCreated).getPersonId());
-                    a.setAccountNo(accName.substring(0, accName.length()<3?0:2)+p.getPersonId());
-                    pnlLogin.getLoginDetails().setPersonId(p.getPersonId());
-                    LoginDetailsClient loginClient = new LoginDetailsClient();
-                    loginClient.create_JSON(pnlLogin.getLoginDetails());
-                    AccountClient accountClient = new AccountClient();
-                    a.setPersonId(p.getPersonId());
-                    accountClient.create_JSON(a);
-                    accountClient.close();
-                personClient.close();
 
-                }
-                updateTable();
-                clearAll();
-                michkEditDetails.setSelected(false);
-                for(int i=0; i<mPeople.size(); i++) {
-                    if(mPeople.get(i).getPersonId()==p.getPersonId()) {
-                        tblPersonalDetailsMain.addRowSelectionInterval(i, i);
-                        break;
+            int result = JOptionPane.showConfirmDialog(null, "Save details of " + p.getFirstname() + " " + p.getLastname()+"?");
+            if(result==JOptionPane.YES_OPTION) {
+                String dateCreated = new SimpleDateFormat(Thereness.be().dateFormat).format(new Date());
+                if(!recordExists)p.setDateCreated(dateCreated);
+                Account a =recordExists?account:new Account();
+                a.setRoleId(((Role)pnlRole.objects.get(pnlRole.getSelectedIndex()-1)).getRoleId());
+                AccountType at = (AccountType)pnlAccountType.objects.get(pnlAccountType.getSelectedIndex()-1);
+                String accName = at.getAccountName();
+                a.setAccountTypeId(at.getAccountTypeId());
+                if(!recordExists) {
+                    if(p!=null) {
+                        PersonClient personClient = new PersonClient();
+                        transIs="created";
+                        personClient.create_JSON(p);
+                        p.setPersonId(personClient.findByDate_JSON(Person.class, dateCreated).getPersonId());
+                        a.setAccountNo(accName.substring(0, accName.length()<3?0:2)+p.getPersonId());
+                        pnlLogin.getLoginDetails().setPersonId(p.getPersonId());
+                        LoginDetailsClient loginClient = new LoginDetailsClient();
+                        loginClient.create_JSON(pnlLogin.getLoginDetails());
+                        AccountClient accountClient = new AccountClient();
+                        a.setPersonId(p.getPersonId());
+                        accountClient.create_JSON(a);
+                        accountClient.close();
+                        personClient.close();
+
                     }
+                    updateTable();
+                    clearAll();
+                    michkEditDetails.setSelected(false);
+                    for(int i=0; i<mPeople.size(); i++) {
+                        if(mPeople.get(i).getPersonId()==p.getPersonId()) {
+                            tblPersonalDetailsMain.addRowSelectionInterval(i, i);
+                            break;
+                        }
+                    }
+
+                    System.out.println("Fullname="+p.getFirstname()+" "+p.getLastname()+", Email="+p.getEmail());
+                } else {
+                    transIs="updated";
+                    PersonClient personUClient = new PersonClient();
+                    personUClient.edit_JSON(p, p.getPersonId()+"");
+                    personUClient.close();
+                    AccountClient accountUClient = new AccountClient();
+                    accountUClient.edit_JSON(a, String.valueOf(a.getAccountId()));
+                    accountUClient.close();
+                    LoginDetailsClient loginDetailsClient = new LoginDetailsClient();
+                    loginDetailsClient.edit_JSON(pnlLogin.getLoginDetails(), String.valueOf(pnlLogin.getLoginDetails().getLoginDetailsId()));
+                    loginDetailsClient.close();
+
+                    updateTable();
                 }
-
-                System.out.println("Fullname="+p.getFirstname()+" "+p.getLastname()+", Email="+p.getEmail());
-            } else {
-                transIs="updated";
-                PersonClient personUClient = new PersonClient();
-                personUClient.edit_JSON(p, p.getPersonId()+"");
-                personUClient.close();
-                AccountClient accountUClient = new AccountClient();
-                accountUClient.edit_JSON(a, String.valueOf(a.getAccountId()));
-                accountUClient.close();
-                LoginDetailsClient loginDetailsClient = new LoginDetailsClient();
-                loginDetailsClient.edit_JSON(pnlLogin.getLoginDetails(), String.valueOf(pnlLogin.getLoginDetails().getLoginDetailsId()));
-                loginDetailsClient.close();
-
-                updateTable();
+                
+                try {
+                    DbTransactionClient dbTransClient = new DbTransactionClient();
+                    dbTransClient.create_JSON(new DbTransactions(0, String.format(trans,transIs,p.getPersonId()), p.getPersonId(), new SimpleDateFormat(Thereness.be().dateFormat).format(new Date())));
+                    dbTransClient.close();
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(null, String.format(trans,transIs,p.getPersonId()));
             }
-//        } catch(Exception ex) {
-//            ex.printStackTrace();
-//        }
-        try {
-            DbTransactionClient dbTransClient = new DbTransactionClient();
-            dbTransClient.create_JSON(new DbTransactions(0, String.format(trans,transIs,p.getPersonId()), p.getPersonId(), new SimpleDateFormat(Thereness.be().dateFormat).format(new Date())));
-            dbTransClient.close();
         } catch(Exception ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, String_Constants.ERROR_FILL_DETAILS);
         }
-        JOptionPane.showMessageDialog(null, String.format(trans,transIs,p.getPersonId()));
     }//GEN-LAST:event_btnPersonalDetailsSaveActionPerformed
 
     private void btnPersonalDetailsRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalDetailsRemoveActionPerformed
@@ -831,7 +840,8 @@ public class JGlobalFrame extends javax.swing.JFrame {
         mPerson = new Person();
         pnlLD.setVisible(true);
         txtLoginUsername.requestFocus();
-        removeFromTable();
+        michkEditDetails.setVisible(true);
+        //removeFromTable();
         
     }//GEN-LAST:event_miLogoutActionPerformed
 
@@ -841,12 +851,12 @@ public class JGlobalFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_miExitActionPerformed
 
     private void michkEditDetailsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_michkEditDetailsStateChanged
-        setEditOptions(michkEditDetails.isSelected());
+        //setEditOptions(michkEditDetails.isSelected());
     }//GEN-LAST:event_michkEditDetailsStateChanged
 
     private void btnLoginRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginRegisterActionPerformed
         clearAll();
-        setEditOptions(true);
+        //setEditOptions(true);
     }//GEN-LAST:event_btnLoginRegisterActionPerformed
 
     private void miClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClearAllActionPerformed
