@@ -20,7 +20,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class JGenericDescriptionPanel extends javax.swing.JPanel {
 

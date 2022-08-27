@@ -9,7 +9,7 @@ import com.cbm.crm.entity.Person;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class JPersonalDetailsPanel extends javax.swing.JPanel {
 

@@ -50,6 +50,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="michkEditDetails">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+E"/>
+                </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Edit Details"/>
               </Properties>
@@ -90,11 +93,17 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="miPreviousTab">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+KP_LEFT"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Previous Tab"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miNextTab">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+KP_RIGHT"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Next Tab"/>
               </Properties>
             </MenuItem>

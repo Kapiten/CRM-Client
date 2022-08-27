@@ -10,7 +10,7 @@ import com.cbm.crm.entity.client.LoginDetailsClient;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class JLoginPanel extends javax.swing.JPanel {
 

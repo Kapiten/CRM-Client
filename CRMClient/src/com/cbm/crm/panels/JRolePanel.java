@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class JRolePanel extends javax.swing.JPanel {
 

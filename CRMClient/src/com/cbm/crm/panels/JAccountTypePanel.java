@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class JAccountTypePanel extends javax.swing.JPanel {
 
