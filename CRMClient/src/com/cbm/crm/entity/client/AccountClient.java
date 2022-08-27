@@ -20,7 +20,7 @@ import javax.ws.rs.client.WebTarget;
  *        client.close();
  * </pre>
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class AccountClient {
 
@@ -61,13 +61,13 @@ public class AccountClient {
 
     public <T> T findByPersonId_XML(Class<T> responseType, String id) throws ClientErrorException {
         WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("{0}/{1}/{2}/{3}", new Object[]{id}));
+        resource = resource.path(java.text.MessageFormat.format("/findByPersonId/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
     }
 
     public <T> T findByPersonId_JSON(Class<T> responseType, String id) throws ClientErrorException {
         WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("{0}/{1}/{2}/{3}", new Object[]{id}));
+        resource = resource.path(java.text.MessageFormat.format("/findByPersonId/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
@@ -103,6 +103,10 @@ public class AccountClient {
 
     public void remove(String id) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request().delete();
+    }
+
+    public void removeByPersonId(String pid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("/removeByPersonId/{0}", new Object[]{pid})).request().delete();
     }
 
     public void close() {

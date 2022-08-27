@@ -10,7 +10,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author Tebogo Sibiya
+ * @author Tebogo
  */
 public class Person {
 
@@ -33,7 +33,7 @@ public class Person {
         this.personId = personId;
     }
 
-    public Person(Integer personId, String firstname, String lastname, String email, String cellnumber1, String cellnumber2, String fax, String gender) {
+    public Person(Integer personId, String firstname, String lastname, String email, String cellnumber1, String cellnumber2, String fax, String gender, String dateCreated) {
         this.personId = personId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -42,6 +42,7 @@ public class Person {
         this.cellnumber2 = cellnumber2;
         this.fax = fax;
         this.gender = gender;
+        this.dateCreated = dateCreated;
     }
 
     public Integer getPersonId() {

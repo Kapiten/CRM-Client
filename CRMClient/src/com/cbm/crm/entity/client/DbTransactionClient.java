@@ -20,7 +20,7 @@ import javax.ws.rs.client.WebTarget;
  *        client.close();
  * </pre>
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class DbTransactionClient {
 

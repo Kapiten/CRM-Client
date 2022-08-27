@@ -20,7 +20,7 @@ import javax.ws.rs.client.WebTarget;
  *        client.close();
  * </pre>
  *
- * @author Tebogo Sibiya
+ * @author Tebogo
  */
 public class AccountTypeClient {
 
