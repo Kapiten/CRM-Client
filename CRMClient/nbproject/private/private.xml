@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sakkie/Documents/NetBeansProjects/CRMClient/src/com/cbm/crm/frame/JGlobalFrame.java</file>
-            <file>file:/C:/Users/Sakkie/Documents/NetBeansProjects/CRMClient/src/com/cbm/crm/panels/JGenericDescriptionPanel.java</file>
-            <file>file:/C:/Users/Sakkie/Documents/NetBeansProjects/CRMClient/src/com/cbm/crm/crmclient/CRMClient.java</file>
+            <file>file:/C:/Projects/_StrettO/Application/Java/CustomerRelation/CRMClient/src/com/cbm/crm/panels/JPersonalDetailsPanel.java</file>
+            <file>file:/C:/Projects/_StrettO/Application/Java/CustomerRelation/CRMClient/src/com/cbm/crm/crmclient/CRMClient.java</file>
+            <file>file:/C:/Projects/_StrettO/Application/Java/CustomerRelation/CRMClient/src/com/cbm/crm/panels/JLoginPanel.java</file>
+            <file>file:/C:/Projects/_StrettO/Application/Java/CustomerRelation/CRMClient/src/com/cbm/crm/frame/JGlobalFrame.java</file>
         </group>
     </open-files>
 </project-private>

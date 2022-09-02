@@ -11,7 +11,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author Tebogo Sibiya
+ * @author Tebogo
  */
 public class AccountType {
 

@@ -5,14 +5,12 @@
  */
 package com.cbm.crm.crmclient;
 
-import com.cbm.crm.entity.LoginDetails;
-import com.cbm.crm.entity.Role;
-import com.cbm.crm.entity.client.LoginDetailsClient;
-import com.cbm.crm.entity.client.RoleClient;
+import com.cbm.crm.entity.Account;
+import com.cbm.crm.entity.client.AccountClient;
 
 /**
  *
- * @author Sakkie
+ * @author Tebogo
  */
 public class CRMClient {
 
@@ -21,21 +19,33 @@ public class CRMClient {
      */
     public static void main(String[] args) {
         System.out.println("Hello, CRM World.");
+        System.out.println(String.format("Person object %s by id=%d", "created",5));
         try {
+            AccountClient ac = new AccountClient();
+            Account a = ac.findByPersonId_JSON(Account.class, "2");
+            System.out.println(a.getAccountNo()+ " is account number.");
+            ac.close();
+            /*RoleClient client = new RoleClient();
+            Role r = client.findByName_JSON(Role.class, "Administrator");
+            //Role r = client.find_JSON(Role.class, "1");
+            System.out.println("_id="+r.getRoleId()
+            +"\nname="+r.getRoleName()
+            +"\ndescription="+r.getDescription());
+            client.close();
+            AccountTypeClient client = new AccountTypeClient();
+            //Role r = client.findByName_JSON(Role.class, "Administrator");
+            AccountType r = client.find_JSON(AccountType.class, "1");
+            System.out.println("_id="+r.getAccountTypeId()
+            +"\nname="+r.getAccountName()
+            +"\ndescription="+r.getDescription());
+            client.close();
+                    
+            
             LoginDetailsClient client = new LoginDetailsClient();
             LoginDetails ld = client.findByUsername_JSON(LoginDetails.class, "cbm_eg@example.com");
             
             client.close();
             System.out.println("ld="+ld.getUsername());
-            /*
-                    
-            RoleClient client = new RoleClient();
-            Role r = client.findByName_JSON(Role.class, "Guest");
-            System.out.println("_id="+r.getRoleId()
-            +"\nname="+r.getRoleName()
-            +"\ndescription="+r.getDescription());
-            client.close();
-            
         AccountTypeClient client  = new AccountTypeClient();
             AccountType at = client.findByName_JSON(AccountType.class, "Standard");
             System.out.println("_id="+at.getAccountTypeId()

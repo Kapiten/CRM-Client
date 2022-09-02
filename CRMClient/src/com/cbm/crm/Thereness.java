@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tebogo Sibiya
+ * @author Tebogo
  */
 public class Thereness {
     private static Thereness be;

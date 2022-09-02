@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Tebogo Sibiya
+ * @author Tebogo
  */
 public class DbTransactions {
 

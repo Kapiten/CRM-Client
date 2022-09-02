@@ -7,6 +7,8 @@ package com.cbm.crm.panels;
 
 import com.cbm.crm.entity.LoginDetails;
 import com.cbm.crm.entity.client.LoginDetailsClient;
+import com.cbm.crm.strings.String_Constants;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -118,7 +120,16 @@ public class JLoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        new LoginDetailsClient().edit_JSON(getLoginDetails(), ld.getLoginDetailsId()+"");
+        try {
+            LoginDetailsClient ldc = new LoginDetailsClient();
+            ldc.edit_JSON(getLoginDetails(), ld.getLoginDetailsId()+"");
+            ldc.close();
+            JOptionPane.showMessageDialog(null, String_Constants.SAVED_INFO);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, String_Constants.ERROR_FILL_DETAILS);
+        }
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
 
