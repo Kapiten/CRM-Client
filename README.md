@@ -7,7 +7,7 @@
 
 ## Made With
 ### HTML, CSS, JavaScript
-<a href="https://github.com/Kapiten/WepAppREST">CRM-Client</a>
+<a href="https://github.com/Kapiten/WebAppREST">WebAppREST</a>
 
 ![Index Display](https://github.com/Kapiten/WebAppREST/blob/main/images/WebAppREST_basic.jpg)
 
